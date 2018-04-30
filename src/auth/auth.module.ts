@@ -22,12 +22,12 @@ export const ROUTES: Routes = [
 ];
 
 export const firebaseConfig: FirebaseAppConfig = {
-  apiKey: "AIzaSyCXz7GrHLBs-xlsCrr185iG4v4UrNreq2Y",
-  authDomain: "fitness-app-e668a.firebaseapp.com",
-  databaseURL: "https://fitness-app-e668a.firebaseio.com",
-  projectId: "fitness-app-e668a",
-  storageBucket: "fitness-app-e668a.appspot.com",
-  messagingSenderId: "1014564696462"
+  apiKey: "AIzaSyA5wyDgmPE1kySmuM9LKpIjLnHHo5nuGcM",
+  authDomain: "art-tracker-app.firebaseapp.com",
+  databaseURL: "https://art-tracker-app.firebaseio.com",
+  projectId: "art-tracker-app",
+  storageBucket: "art-tracker-app.appspot.com",
+  messagingSenderId: "791055169648"
 };
 
 @NgModule({
