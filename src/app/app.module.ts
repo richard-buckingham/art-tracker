@@ -30,3 +30,13 @@ export const ROUTES: Routes = [];
   ]
 })
 export class AppModule {}
+
+
+/* var config = {
+  apiKey: "AIzaSyA5wyDgmPE1kySmuM9LKpIjLnHHo5nuGcM",
+  authDomain: "art-tracker-app.firebaseapp.com",
+  databaseURL: "https://art-tracker-app.firebaseio.com",
+  projectId: "art-tracker-app",
+  storageBucket: "art-tracker-app.appspot.com",
+  messagingSenderId: "791055169648"
+}; */
