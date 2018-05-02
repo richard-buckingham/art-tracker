@@ -9,7 +9,7 @@ import { User } from '../../../auth/shared/services/auth/auth.service';
   template: `
     <div class="app-header">
       <div class="wrapper">
-        <img src="/img/logo.svg">
+        <img src="/img/mudmarks.jpg">
         <div 
           class="app-header__user-info"
           *ngIf="user?.authenticated">

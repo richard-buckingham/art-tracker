@@ -10,7 +10,6 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
     <div>
       <auth-form (submitted)="loginUser($event)">
         <h1>Login</h1>
-        <a routerLink="/auth/register">Not registered?</a>
         <button type="submit">
           Login
         </button>
