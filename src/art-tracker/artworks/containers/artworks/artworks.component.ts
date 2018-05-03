@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   styleUrls: ['artworks.component.scss'],
   template: `
     <div>
-      Artworks
+      Artworks dude 1
     </div>
   `
 })
