@@ -6,6 +6,7 @@ import { Store } from 'store';
 
 // feature modules
 import { AuthModule } from '../auth/auth.module';
+import { ArtTrackerModule } from '../art-tracker/art-tracker.module';
 
 // containers
 import { AppComponent } from './containers/app/app.component';
@@ -21,7 +22,8 @@ export const ROUTES: Routes = [];
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
-    AuthModule
+    AuthModule,
+    ArtTrackerModule
   ],
   declarations: [
     AppComponent,
