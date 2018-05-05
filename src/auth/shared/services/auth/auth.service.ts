@@ -52,4 +52,8 @@ export class AuthService {
     return this.af.auth.signOut();
   }
 
+  get currentUser(): any {
+    return this.af.auth.currentUser
+  }
+
 }

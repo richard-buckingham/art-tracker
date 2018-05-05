@@ -6,6 +6,9 @@ import { RouterModule, Routes } from '@angular/router';
 // containers
 import { ArtworksComponent} from './containers/artworks/artworks.component';
 
+// SHARED MODULES
+import { SharedModule } from '../shared/shared.module';
+
 // define routes
 export const ROUTES: Routes = [
   { path: '', component: ArtworksComponent }
@@ -15,7 +18,8 @@ export const ROUTES: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(ROUTES),
+    SharedModule // .forRoot() has already been called in ArtTrackerModule, which is the parent module.
   ],
   declarations: [
     ArtworksComponent

@@ -5,14 +5,17 @@ import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 import { User } from './auth/shared/services/auth/auth.service';
+import { Artwork } from './art-tracker/models/artwork.interface';
 
 export interface State {
   user: User,
+  artworks: Artwork[],
   [key: string]: any
 }
 
 const state: State = {
-  user: undefined
+  user: undefined,
+  artworks: undefined
 };
 
 export class Store {
