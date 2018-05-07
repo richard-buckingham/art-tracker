@@ -13,8 +13,39 @@ import { Store } from 'store';
   selector: 'artworks',
   styleUrls: ['artworks.component.scss'],
   template: `
-    <div>
-      {{ artworks$ | async | json }}
+    <div class="artworks">
+
+      <!-- Title -->
+      <div class="artworks__title">
+
+        <h1>Artworks</h1>
+
+        <a
+          class="btn__add"
+          [routerLink]="['../artworks/new']" >
+          <img src="/img/add-white.svg">   
+          New Artwork      
+        </a>
+           
+      </div>
+
+      <!-- List the artworks -->
+      <div *ngIf="artworks$ | async as artworks; else loading;">
+        <div class="message" *ngIf="!artworks.length" >
+        <img src="/img/face.svg">   
+          No artworks, add a new artwork to start...
+        </div>
+
+        <!-- Artworks will be rendered below this line -->
+
+      </div>
+      <ng-template #loading>
+        <div class="message">
+          <img src="/img/loading.svg">
+          Fetching artworks...
+        </div>
+      </ng-template>
+
     </div>
   `
 })
