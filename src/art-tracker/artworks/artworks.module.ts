@@ -11,6 +11,7 @@ import { ArtworksComponent} from './containers/artworks/artworks.component';
 import { ArtworkComponent} from './containers/artwork/artwork.component';
 
 // components
+import { ArtworkFormComponent} from './components/artwork-form/artwork-form.component';
 
 
 // define routes
@@ -28,7 +29,8 @@ export const ROUTES: Routes = [
   ],
   declarations: [
     ArtworksComponent,
-    ArtworkComponent
+    ArtworkComponent,
+    ArtworkFormComponent
   ]
 })
 export class ArtworksModule {}
