@@ -24,7 +24,7 @@ import { Artwork } from '../../../models/artwork.interface';
         class="list-item__delete"
         *ngIf="toggled">
 
-        <p>Delete item?</p>
+        <p>Delete artwork?</p>
 
         <button 
           class="confirm"

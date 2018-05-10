@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 
 import { Store } from 'store';
 
@@ -17,8 +21,7 @@ export class ArtworksService {
     .do((next: Artwork) => {
       console.log('adding an artwork to the store', next);
       return this.store.set('artworks', next);
-    }
-    );
+    });
 
   constructor(
     private store: Store,
@@ -38,4 +41,28 @@ export class ArtworksService {
     return this.db.list(`artworks/${this.uid}`).remove(key);
   }
 
+  // find the artwork in the store
+  getArtwork(key: string) {
+    if (!key) {
+      return Observable.of({});
+      
+    }
+    return this.store.select<Artwork[]>('artworks')
+      .filter(Boolean)
+      .map(artworks => artworks.find((artwork: Artwork) => artwork.$key === key));
+  }
+
+
+  // getArtwork(key: string) {
+  //   console.log('in getArtwork');
+  //   if (!key) {
+  //     return Observable.of({});
+  //   }
+  //   return this.store.select<Artwork[]>('artworks')
+  //     .filter(Boolean)
+  //     .map((artworks: Artwork[]) => {
+  //       console.log('edit an artwork. The artworks array = ', artworks);
+  //       return artworks.find((artwork: Artwork) => artwork.$key === key)
+  //     });
+  // }
 }
