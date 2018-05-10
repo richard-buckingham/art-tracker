@@ -37,6 +37,11 @@ import { Store } from 'store';
         </div>
 
         <!-- Artworks will be rendered below this line -->
+        <artwork-list
+          *ngFor="let artwork of artworks"
+          [artwork]="artwork"
+          (remove)="remove($event)" >
+        </artwork-list>
 
       </div>
       <ng-template #loading>
@@ -57,6 +62,11 @@ export class ArtworksComponent implements OnInit, OnDestroy{
   constructor(
     private artworksService: ArtworksService,
     private store: Store) {
+  }
+
+  remove(event: Artwork) {
+    console.log('removing the following artwork', event);
+    this.artworksService.removeArtwork(event.$key);
   }
 
   ngOnInit() {

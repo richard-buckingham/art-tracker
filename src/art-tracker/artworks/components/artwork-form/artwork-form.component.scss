@@ -36,6 +36,11 @@
     padding: 30px;
     flex-direction: column;
     border-bottom: 1px solid #d1deeb;
+    h3 {
+      display: inline-block;
+      max-width: 25%;
+      margin-right: 10px;
+    }
   }
   &__food {
     padding: 30px;

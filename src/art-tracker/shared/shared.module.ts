@@ -9,6 +9,9 @@ import { RouterModule } from '@angular/router';
 // Third party modules
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
+// components
+
+
 // services
 import { ArtworksService } from './services/artworks/artworks.service';
 

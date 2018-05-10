@@ -12,12 +12,14 @@ import { ArtworkComponent} from './containers/artwork/artwork.component';
 
 // components
 import { ArtworkFormComponent} from './components/artwork-form/artwork-form.component';
+import { ArtworkListComponent} from './components/artwork-list/artwork-list.component';
 
 
 // define routes
 export const ROUTES: Routes = [
   { path: '', component: ArtworksComponent },
-  { path: 'new', component: ArtworkComponent }
+  { path: 'new', component: ArtworkComponent },
+  { path: ':id', component: ArtworkComponent }
 ];
 
 @NgModule({
@@ -30,7 +32,8 @@ export const ROUTES: Routes = [
   declarations: [
     ArtworksComponent,
     ArtworkComponent,
-    ArtworkFormComponent
+    ArtworkFormComponent,
+    ArtworkListComponent
   ]
 })
 export class ArtworksModule {}

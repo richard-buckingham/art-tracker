@@ -10,25 +10,32 @@ import { Artwork } from '../../../models/artwork.interface';
 
 @Injectable()
 export class ArtworksService {
-  
+
   // setup an observable stream for artworks'
   // NOTE that this.db.list(`artworks/${this.uid}` is an observable
   artwork$: Observable<Artwork[]> = this.db.list(`artworks/${this.uid}`)
     .do((next: Artwork) => {
       console.log('adding an artwork to the store', next);
       return this.store.set('artworks', next);
-      }
+    }
     );
 
   constructor(
     private store: Store,
     private db: AngularFireDatabase,
     private authService: AuthService
-    ) {}
+  ) { }
 
-get uid():string {
-  return this.authService.currentUser.uid;
-}
+  get uid(): string {
+    return this.authService.currentUser.uid;
+  }
 
+  addArtwork(artwork: Artwork) {
+    return this.db.list(`artworks/${this.uid}`).push(artwork);
+  }
+
+  removeArtwork(key: string) {
+    return this.db.list(`artworks/${this.uid}`).remove(key);
+  }
 
 }

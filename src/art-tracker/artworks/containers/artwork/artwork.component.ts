@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { ArtworksService } from '../../../shared/services/artworks/artworks.service';
 import { Artwork } from '../../../models/artwork.interface';
 
 @Component({
@@ -25,9 +27,14 @@ import { Artwork } from '../../../models/artwork.interface';
   `
 })
 export class ArtworkComponent {
-  constructor() {}
 
-  addArtwork(event: Artwork) {
-    console.log('adding an artwork: ', event);
+  constructor(
+    private router: Router,
+    private artworksService: ArtworksService
+  ) {}
+
+  async addArtwork(event: Artwork) {
+   await this.artworksService.addArtwork(event);
+   this.router.navigate(['artworks']);
   }
 }
