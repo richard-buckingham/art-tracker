@@ -37,6 +37,10 @@ export class ArtworksService {
     return this.db.list(`artworks/${this.uid}`).push(artwork);
   }
 
+  updateArtwork(key: string, artwork: Artwork) {
+    return this.db.object(`artworks/${this.uid}/${key}`).update(artwork);
+  }
+
   removeArtwork(key: string) {
     return this.db.list(`artworks/${this.uid}`).remove(key);
   }
@@ -45,24 +49,10 @@ export class ArtworksService {
   getArtwork(key: string) {
     if (!key) {
       return Observable.of({});
-      
     }
     return this.store.select<Artwork[]>('artworks')
       .filter(Boolean)
       .map(artworks => artworks.find((artwork: Artwork) => artwork.$key === key));
   }
 
-
-  // getArtwork(key: string) {
-  //   console.log('in getArtwork');
-  //   if (!key) {
-  //     return Observable.of({});
-  //   }
-  //   return this.store.select<Artwork[]>('artworks')
-  //     .filter(Boolean)
-  //     .map((artworks: Artwork[]) => {
-  //       console.log('edit an artwork. The artworks array = ', artworks);
-  //       return artworks.find((artwork: Artwork) => artwork.$key === key)
-  //     });
-  // }
 }

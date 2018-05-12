@@ -17,8 +17,11 @@ import { Store } from 'store';
 
       <!-- Title -->
       <div class="artworks__title">
-
-        <h1>Artworks</h1>
+      
+        <h1>
+        <img src="/img/food.svg">
+          Your Artworks
+        </h1>
 
         <a
           class="btn__add"

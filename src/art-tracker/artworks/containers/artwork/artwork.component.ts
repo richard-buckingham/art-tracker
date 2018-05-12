@@ -26,10 +26,19 @@ import { Artwork } from '../../../models/artwork.interface';
         </h1>
       </div>
 
-      <div>
+      <div *ngIf="artwork$ | async as artwork; else loading;">
         <artwork-form
-          (create)="addArtwork($event)">
+          [artwork]="artwork"
+          (create)="addArtwork($event)"
+          (update)="updateArtwork($event)"
+          (remove)="removeArtwork($event)">
         </artwork-form>
+        <ng-template #loading>
+            <div class="message">
+              <img src="/img/loading.svg" >
+              Fetching artwork...
+            </div>
+        </ng-template>
       </div>
     
     </div>
@@ -49,6 +58,18 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   async addArtwork(event: Artwork) {
    await this.artworksService.addArtwork(event);
    this.router.navigate(['artworks']);
+  }
+
+  async updateArtwork(event: Artwork) {
+    const key: string = this.route.snapshot.params.id;
+    await this.artworksService.updateArtwork(key, event);
+    this.router.navigate(['artworks']);
+  }
+
+  async removeArtwork(event: Artwork) {
+    const key: string = this.route.snapshot.params.id;
+    await this.artworksService.removeArtwork(key);
+    this.router.navigate(['artworks']);
   }
 
   ngOnInit() {
