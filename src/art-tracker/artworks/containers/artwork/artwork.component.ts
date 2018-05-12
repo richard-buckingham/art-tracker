@@ -12,36 +12,33 @@ import { Artwork } from '../../../models/artwork.interface';
   selector: 'artwork',
   styleUrls: ['artwork.component.scss'],
   template: `
-    <div class="artwork">
-      
-      <div class="artwork__title">
-        <h1>
-          <img src="/img/food.svg" >
-          <span *ngIf="artwork$ | async as artwork; else title;">
+  <div class="artwork">
+    <div class="artwork__title">
+      <h1>
+        <img src="/img/food.svg">
+        <span *ngIf="artwork$ | async as artwork; else title;">
           {{ artwork.name ? 'Edit' : 'Create' }} artwork
-          </span>
-          <ng-template #title>
-            Loading...
-          </ng-template>
-        </h1>
-      </div>
-
-      <div *ngIf="artwork$ | async as artwork; else loading;">
-        <artwork-form
-          [artwork]="artwork"
-          (create)="addArtwork($event)"
-          (update)="updateArtwork($event)"
-          (remove)="removeArtwork($event)">
-        </artwork-form>
-        <ng-template #loading>
-            <div class="message">
-              <img src="/img/loading.svg" >
-              Fetching artwork...
-            </div>
+        </span>
+        <ng-template #title>
+          Loading...
         </ng-template>
-      </div>
-    
+      </h1>
     </div>
+    <div *ngIf="artwork$ | async as artwork; else loading;">
+      <artwork-form
+        [artwork]="artwork"
+        (create)="addArtwork($event)"
+        (update)="updateArtwork($event)"
+        (remove)="removeArtwork($event)">
+      </artwork-form>
+    </div>
+    <ng-template #loading>
+      <div class="message">
+        <img src="/img/loading.svg">
+        Fetching artwork...
+      </div>
+    </ng-template>
+  </div>
   `
 })
 export class ArtworkComponent implements OnInit, OnDestroy {
