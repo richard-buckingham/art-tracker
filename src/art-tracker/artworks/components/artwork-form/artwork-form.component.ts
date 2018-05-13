@@ -12,14 +12,26 @@ import { Artwork } from '../../../models/artwork.interface';
 
       <form [formGroup]="form">
 
+        <!-- Code -->  
+        <div class="artwork-form__code">
+          <label>
+            <h3>Code</h3>
+            <input type="text" placeholder="e.g. RN18-112" formControlName="code">
+          </label>
+          <div class="error" *ngIf="codeRequired">
+            Artwork code is required
+          </div>
+        </div>
+      
+        <!-- Name -->  
         <div class="artwork-form__name">
           <label>
             <h3>Name</h3>
             <input type="text" placeholder="please enter name..." formControlName="name">
-            <div class="error" *ngIf="nameRequired">
-              Artwork name is required
-            </div>
           </label>
+          <div class="error" *ngIf="nameRequired">
+            Artwork name is required
+          </div>
         </div>
 
         <div class="artwork-form__submit">
@@ -86,16 +98,13 @@ export class ArtworkFormComponent implements OnChanges {
   @Output() remove = new EventEmitter<Artwork>();
 
   form: FormGroup = this.fb.group({
+    code: ['', Validators.required],
     name: ['', Validators.required]
   });
 
   constructor(
     private fb: FormBuilder
   ) { }
-
-  get nameRequired(): boolean {
-    return (this.form.get('name').hasError('required') && this.form.get('name').touched);
-  }
 
   createArtwork() {
     console.log(this.form.value);
@@ -127,6 +136,14 @@ export class ArtworkFormComponent implements OnChanges {
       this.form.patchValue(value);
 
     }
+  }
+
+  get codeRequired(): boolean {
+    return (this.form.get('code').hasError('required') && this.form.get('code').touched);
+  }
+  
+  get nameRequired(): boolean {
+    return (this.form.get('name').hasError('required') && this.form.get('name').touched);
   }
 
 

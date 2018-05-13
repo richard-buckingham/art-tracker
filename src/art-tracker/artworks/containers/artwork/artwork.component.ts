@@ -17,7 +17,7 @@ import { Artwork } from '../../../models/artwork.interface';
       <h1>
         <img src="/img/food.svg">
         <span *ngIf="artwork$ | async as artwork; else title;">
-          {{ artwork.name ? 'Edit' : 'Create' }} artwork
+          {{ artwork.name ? 'Edit' : 'Create' }} Artwork
         </span>
         <ng-template #title>
           Loading...
