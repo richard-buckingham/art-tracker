@@ -11,7 +11,7 @@ import { Artwork } from '../../../models/artwork.interface';
     <div class="list-item">
       <a [routerLink]="getRoute(artwork)">
 
-        <p class="list-item__name">{{artwork.name}}</p>
+        <p class="list-item__name">{{artwork.description}}</p>
         <p class="list-item__ingredients">
         <span>
           artwork desc, location, price etc to go in here...

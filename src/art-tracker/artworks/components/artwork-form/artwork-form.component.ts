@@ -18,26 +18,41 @@ import { Artwork } from '../../../models/artwork.interface';
             <h3>Code</h3>
             <input type="text" placeholder="e.g. RN18-112" formControlName="code">
           </label>
-          <div class="error" *ngIf="codeRequired">
-            Artwork code is required
+          <div class="error" *ngIf="validateRequired('code')">
+            code is required
           </div>
         </div>
       
-        <!-- Name -->  
-        <div class="artwork-form__name">
+        <!-- Description -->  
+        <div class="artwork-form__description">
           <label>
-            <h3>Name</h3>
-            <input type="text" placeholder="please enter name..." formControlName="name">
+            <h3>Description</h3>
+            <input type="text" placeholder="please enter description..." formControlName="description">
           </label>
-          <div class="error" *ngIf="nameRequired">
-            Artwork name is required
+          <div class="error" *ngIf="validateRequired('description')">
+            description is required
           </div>
         </div>
+
+        <!-- Location -->
+
+        <!-- Description -->
+
+        <!-- Dimensions -->        
+        <!-- Wholesale Price -->        
+        <!-- Retail Price -->        
+        <!-- Date Sold -->        
+        <!--  -->        
+        <!--  -->        
+        <!--  -->        
+         
 
         <div class="artwork-form__submit">
           <div>
 
-            <button type="button" class="button" *ngIf="!exists" (click)="createArtwork()">
+            <button type="button" class="button" 
+                    *ngIf="!exists" (click)="createArtwork()"
+                    [disabled]="!form.valid">
               Create Artwork
             </button>
 
@@ -81,7 +96,6 @@ import { Artwork } from '../../../models/artwork.interface';
         
         </div>
 
-
       </form>
       <pre>{{ form.value | json }}</pre>
     </div>
@@ -99,7 +113,7 @@ export class ArtworkFormComponent implements OnChanges {
 
   form: FormGroup = this.fb.group({
     code: ['', Validators.required],
-    name: ['', Validators.required]
+    description: ['', Validators.required]
   });
 
   constructor(
@@ -129,7 +143,7 @@ export class ArtworkFormComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.exists = false;
-    if (this.artwork && this.artwork.name) {
+    if (this.artwork && this.artwork.description) {
       this.exists = true;
 
       const value = this.artwork;
@@ -138,13 +152,8 @@ export class ArtworkFormComponent implements OnChanges {
     }
   }
 
-  get codeRequired(): boolean {
-    return (this.form.get('code').hasError('required') && this.form.get('code').touched);
+  validateRequired(formControlName:string): boolean {
+    return (this.form.get(formControlName).hasError('required') && this.form.get(formControlName).touched);
   }
-  
-  get nameRequired(): boolean {
-    return (this.form.get('name').hasError('required') && this.form.get('name').touched);
-  }
-
 
 }

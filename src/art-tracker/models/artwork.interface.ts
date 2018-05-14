@@ -1,6 +1,6 @@
 export interface Artwork {
   code: string,
-  name: string,
+  description: string,
   timestamp: number,
   $key: string,
   $exists : () => boolean
