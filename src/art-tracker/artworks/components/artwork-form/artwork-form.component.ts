@@ -2,6 +2,9 @@ import { Component, OnChanges, SimpleChanges, Input, Output, EventEmitter, Chang
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { Artwork } from '../../../models/artwork.interface';
+import { SelectData } from '../../../models/selectData.interface';
+
+import { locations } from '../../../models/constants';
 
 @Component({
   selector: 'artwork-form',
@@ -34,7 +37,22 @@ import { Artwork } from '../../../models/artwork.interface';
           </div>
         </div>
 
-        <!-- Location -->
+        <! -- Location -->
+        <div class="artwork-form__location">
+          <label>
+            <h3>Location</h3>
+            <select class="form-control" formControlName="location">
+              <option *ngFor="let location of locations" 
+                [value]="location.value"
+                selected="location.default" >
+                {{location.description}}
+              </option>
+            </select>
+          </label>
+          <div class="error" *ngIf="validateRequired('location')">
+            location is required
+          </div>
+        </div>
 
         <!-- Description -->
 
@@ -105,6 +123,7 @@ export class ArtworkFormComponent implements OnChanges {
 
   toggled: boolean = false;
   exists: boolean = false;
+  locations: SelectData[] = locations;
 
   @Input() artwork: Artwork;
   @Output() create = new EventEmitter<Artwork>();
@@ -112,6 +131,7 @@ export class ArtworkFormComponent implements OnChanges {
   @Output() remove = new EventEmitter<Artwork>();
 
   form: FormGroup = this.fb.group({
+    location: ['home', Validators.required],
     code: ['', Validators.required],
     description: ['', Validators.required]
   });
@@ -154,6 +174,10 @@ export class ArtworkFormComponent implements OnChanges {
 
   validateRequired(formControlName:string): boolean {
     return (this.form.get(formControlName).hasError('required') && this.form.get(formControlName).touched);
+  }
+
+  setSelected(location: SelectData): string {
+    return location.default ? "selected" : "";
   }
 
 }

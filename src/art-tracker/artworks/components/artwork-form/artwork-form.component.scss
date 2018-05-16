@@ -29,6 +29,30 @@
 }
 
 .artwork-form {
+  padding-top: 10px;
+  &__location {
+    margin-left: 30px;
+    flex-direction: column;
+    h3 {
+      display: inline-block;
+      width: 20%;
+      margin-right: 10px;
+      text-align: right;
+    }
+    select {
+      width: 45%;
+      outline: 0;
+      font-size: 16px;
+      padding: 10px 40px 10px 15px;
+      margin: 0;
+      background: #fff;
+      color: #545e6f;
+      flex-grow: 1;
+      //border: 1px solid #d1deeb;
+      border-radius: 3px;
+      transition: all 0.2s ease-in-out;
+    }
+  }
   &__code {
     margin-left: 30px;
     flex-direction: column;
