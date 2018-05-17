@@ -16,7 +16,7 @@ import { locations } from '../../../models/constants';
       <form [formGroup]="form">
 
         <!-- Code -->  
-        <div class="artwork-form__code">
+        <div class="artwork-form single-line-input">
           <label>
             <h3>Code</h3>
             <input type="text" placeholder="e.g. RN18-112" formControlName="code">
@@ -27,7 +27,7 @@ import { locations } from '../../../models/constants';
         </div>
       
         <!-- Description -->  
-        <div class="artwork-form__description">
+        <div class="artwork-form single-line-input">
           <label>
             <h3>Description</h3>
             <input type="text" placeholder="please enter description..." formControlName="description">
@@ -38,7 +38,7 @@ import { locations } from '../../../models/constants';
         </div>
 
         <! -- Location -->
-        <div class="artwork-form__location">
+        <div class="artwork-form select">
           <label>
             <h3>Location</h3>
             <select class="form-control" formControlName="location">
