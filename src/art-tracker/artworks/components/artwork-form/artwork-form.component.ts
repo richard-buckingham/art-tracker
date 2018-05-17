@@ -72,11 +72,34 @@ import { artSeries } from '../../../reference-data/art-series';
           </div>
         </div>
 
-        <!-- Description -->
+        <!-- Dimensions -->
+        <div class="artwork-form single-line-input">
+          <label>
+            <h3>Dimensions</h3>
+            <input type="text" placeholder="please enter dimensions..." 
+                    formControlName="dimensions">
+          </label>
+          <div class="error" *ngIf="validateRequired('dimensions')">
+            dimensions are required
+          </div>
+        </div>
 
-        <!-- Dimensions -->        
-        <!-- Wholesale Price -->        
-        <!-- Retail Price -->        
+        <!-- Retail Price -->
+        <div class="artwork-form single-line-input">
+          <label>
+            <h3>Retail Price</h3>
+            <input type="number" placeholder="please retail price..." 
+                    formControlName="retailPrice">
+          </label>
+          <div class="error" *ngIf="validateRequired('retailPrice')">
+            retail price is required
+          </div>
+        </div>
+
+
+
+       
+                
         <!-- Date Sold -->        
         <!--  -->        
         <!--  -->        
@@ -88,7 +111,7 @@ import { artSeries } from '../../../reference-data/art-series';
 
             <button type="button" class="button" 
                     *ngIf="!exists" (click)="createArtwork()"
-                    [disabled]="!form.valid">
+                    [disabled]="!form.valid" >
               Create Artwork
             </button>
 
@@ -153,7 +176,11 @@ export class ArtworkFormComponent implements OnChanges {
     series: ['', Validators.required],    
     location: ['home', Validators.required],
     code: ['', Validators.required],
-    description: ['', Validators.required]
+    description: ['', Validators.required],
+    dimensions: ['', Validators.required],
+    retailPrice: [, Validators.required],
+    wholesalePrice: [123.45, Validators.required],
+    dateSold: ['01/01/2020', Validators.required]
   });
 
   constructor(
