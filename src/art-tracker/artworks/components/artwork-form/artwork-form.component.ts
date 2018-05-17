@@ -4,7 +4,8 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Artwork } from '../../../models/artwork.interface';
 import { SelectData } from '../../../models/selectData.interface';
 
-import { locations } from '../../../models/constants';
+import { locations } from '../../../reference-data/constants';
+import { artSeries } from '../../../reference-data/art-series';
 
 @Component({
   selector: 'artwork-form',
@@ -15,7 +16,24 @@ import { locations } from '../../../models/constants';
 
       <form [formGroup]="form">
 
-        <!-- Code -->  
+      <! -- Series -->
+      <div class="artwork-form select">
+        <label>
+          <h3>Series</h3>
+          <select class="form-control" formControlName="series">
+            <option *ngFor="let item of artSeries" 
+              [value]="item.value"
+              selected="item.default" >
+              {{item.description}}
+            </option>
+          </select>
+        </label>
+        <div class="error" *ngIf="validateRequired('series')">
+          required field
+        </div>
+      </div>
+
+      <!-- Code -->  
         <div class="artwork-form single-line-input">
           <label>
             <h3>Code</h3>
@@ -116,6 +134,8 @@ import { locations } from '../../../models/constants';
 
       </form>
       <pre>{{ form.value | json }}</pre>
+/*       <pre>{{ locations | json }}</pre>
+      <pre>{{ artSeries | json }}</pre> */
     </div>
   `
 })
@@ -124,6 +144,7 @@ export class ArtworkFormComponent implements OnChanges {
   toggled: boolean = false;
   exists: boolean = false;
   locations: SelectData[] = locations;
+  artSeries: SelectData[] = artSeries;
 
   @Input() artwork: Artwork;
   @Output() create = new EventEmitter<Artwork>();
@@ -131,6 +152,7 @@ export class ArtworkFormComponent implements OnChanges {
   @Output() remove = new EventEmitter<Artwork>();
 
   form: FormGroup = this.fb.group({
+    series: ['series1', Validators.required],    
     location: ['home', Validators.required],
     code: ['', Validators.required],
     description: ['', Validators.required]
@@ -168,16 +190,11 @@ export class ArtworkFormComponent implements OnChanges {
 
       const value = this.artwork;
       this.form.patchValue(value);
-
     }
   }
 
   validateRequired(formControlName:string): boolean {
     return (this.form.get(formControlName).hasError('required') && this.form.get(formControlName).touched);
-  }
-
-  setSelected(location: SelectData): string {
-    return location.default ? "selected" : "";
   }
 
 }
