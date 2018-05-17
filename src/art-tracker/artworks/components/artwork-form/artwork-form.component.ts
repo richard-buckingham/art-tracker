@@ -96,6 +96,18 @@ import { artSeries } from '../../../reference-data/art-series';
           </div>
         </div>
 
+        <!-- Wholesale Price -->
+        <div class="artwork-form single-line-input">
+          <label>
+            <h3>Wholesale Price</h3>
+            <input type="number"
+                    formControlName="wholesalePrice">
+          </label>
+          <div class="error" *ngIf="validateRequired('wholesalePrice')">
+            wholesale price is required
+          </div>
+        </div>
+
 
 
        
@@ -156,7 +168,7 @@ import { artSeries } from '../../../reference-data/art-series';
         </div>
 
       </form>
-      <pre>{{ form.value | json }}</pre>
+     <!-- <pre>{{ form.value | json }}</pre> -->
     </div>
   `
 })
@@ -179,7 +191,7 @@ export class ArtworkFormComponent implements OnChanges {
     description: ['', Validators.required],
     dimensions: ['', Validators.required],
     retailPrice: [, Validators.required],
-    wholesalePrice: [123.45, Validators.required],
+    wholesalePrice: [{value: '0.00', disabled: true}, Validators.required],
     dateSold: ['01/01/2020', Validators.required]
   });
 
@@ -219,7 +231,8 @@ export class ArtworkFormComponent implements OnChanges {
   }
 
   validateRequired(formControlName:string): boolean {
-    return (this.form.get(formControlName).hasError('required') && this.form.get(formControlName).touched);
+    return (this.form.get(formControlName).hasError('required') 
+              && this.form.get(formControlName).touched);
   }
 
 }
