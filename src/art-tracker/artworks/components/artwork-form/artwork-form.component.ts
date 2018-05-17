@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Artwork } from '../../../models/artwork.interface';
 import { SelectData } from '../../../models/selectData.interface';
 
-import { locations } from '../../../reference-data/constants';
+import { locations } from '../../../reference-data/locations';
 import { artSeries } from '../../../reference-data/art-series';
 
 @Component({
