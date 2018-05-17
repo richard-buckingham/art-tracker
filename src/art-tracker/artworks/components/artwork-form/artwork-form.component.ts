@@ -37,7 +37,7 @@ import { artSeries } from '../../../reference-data/art-series';
         <div class="artwork-form single-line-input">
           <label>
             <h3>Code</h3>
-            <input type="text" placeholder="e.g. RN18-112" formControlName="code">
+            <input type="text" placeholder="todo - generate the code" formControlName="code">
           </label>
           <div class="error" *ngIf="validateRequired('code')">
             code is required
@@ -134,8 +134,6 @@ import { artSeries } from '../../../reference-data/art-series';
 
       </form>
       <pre>{{ form.value | json }}</pre>
-/*       <pre>{{ locations | json }}</pre>
-      <pre>{{ artSeries | json }}</pre> */
     </div>
   `
 })
@@ -152,7 +150,7 @@ export class ArtworkFormComponent implements OnChanges {
   @Output() remove = new EventEmitter<Artwork>();
 
   form: FormGroup = this.fb.group({
-    series: ['series1', Validators.required],    
+    series: ['', Validators.required],    
     location: ['home', Validators.required],
     code: ['', Validators.required],
     description: ['', Validators.required]
