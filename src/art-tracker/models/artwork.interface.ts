@@ -7,7 +7,8 @@ export interface Artwork {
   retailPrice: number,
   wholesalePrice: number,
   commission: number,
-  dateSold: string,
+  dateCreated: Date,
+  dateSold: Date,
   timestamp: number,
   $key: string,
   $exists : () => boolean

@@ -14,7 +14,7 @@ import { Artwork } from '../../../models/artwork.interface';
         <p class="list-item__name">{{artwork.description}}</p>
         <p class="list-item__ingredients">
         <span>
-          artwork desc, location, price etc to go in here...
+          {{ artworkDescriptionForList }}
         </span>
       </p>
 
@@ -71,6 +71,10 @@ export class ArtworkListComponent {
 
   removeItem() {
     this.remove.emit(this.artwork);
+  }
+
+  get artworkDescriptionForList(): string {
+    return `located at ${this.artwork.location}, priced at $${this.artwork.retailPrice}`;
   }
 
 }
