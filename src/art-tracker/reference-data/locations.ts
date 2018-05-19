@@ -8,14 +8,18 @@ export const locations: Location[] = [
     commission: 0
   },
   {
-    code: "wyreena",
-    name: "Wyreena",
-    commission: 20
-  },
-  {
     code: "town-and-country",
     name: "Town & Country",
     commission: 45
+  },
+  {
+    code: "warrandyte",
+    name: "Warrandyte",
+    commission: 0
+  },{
+    code: "wyreena",
+    name: "Wyreena",
+    commission: 20
   },
 ];
 

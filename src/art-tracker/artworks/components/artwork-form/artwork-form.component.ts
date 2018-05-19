@@ -110,9 +110,18 @@ import { artSeries } from '../../../reference-data/art-series';
     
         </div>
 
-
-  
-        <!-- Date Sold -->        
+        <!-- Date Sold -->  
+        <div class="single-line-input">
+        <label>
+          <h3>Date Sold</h3>
+          <input type="date" 
+          formControlName="dateSold"
+          class="date">
+        </label>
+        <div class="error" *ngIf="1 === 2">
+          please a valid date sold
+        </div>
+      </div>      
 
         <div class="artwork-form__submit">
           <div>
@@ -166,6 +175,7 @@ import { artSeries } from '../../../reference-data/art-series';
       </form>
      <pre>Artwork: {{ form.value | json }}</pre>
      <pre>Locations: {{ locations | json }}</pre>
+     <pre>artSeries: {{ artSeries | json }}</pre>
     </div>
   `
 })
@@ -191,7 +201,7 @@ export class ArtworkFormComponent implements OnChanges {
     retailPrice: [, Validators.required],
     wholesalePrice: [, Validators.required],
     commission: [, Validators.required],
-    dateSold: ['01/01/2020', Validators.required]
+    dateSold: ['' ]
   });
 
   constructor(
