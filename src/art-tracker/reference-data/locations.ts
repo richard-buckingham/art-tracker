@@ -1,18 +1,21 @@
 
-import { SelectData } from '../models/selectData.interface';
+import { Location } from '../models/location.interface';
 
-export const locations: SelectData[] = [
+export const locations: Location[] = [
   {
-    value: "home",
-    description: "Home"
+    code: "home",
+    name: "Home",
+    commission: 0
   },
   {
-    value: "wyrena",
-    description: "Wyrena"
+    code: "wyreena",
+    name: "Wyreena",
+    commission: 20
   },
   {
-    value: "town-and-country",
-    description: "Town & Country"
+    code: "town-and-country",
+    name: "Town & Country",
+    commission: 45
   },
 ];
 

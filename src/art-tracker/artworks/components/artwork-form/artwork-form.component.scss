@@ -39,6 +39,14 @@
       width: 20%;
       margin-right: 10px;
       text-align: right;
+      &.price {
+        text-align: center;
+        width: 13%;
+        margin-left: 10px;
+      }
+    }
+    span {
+      font-weight: 400;
     }
     input {
       width: 75%;
@@ -49,8 +57,10 @@
         opacity: .4;
         cursor: not-allowed;
       }
+      &.price {
+        width: 17%;
+      }
     } 
-
   }
 
   .select {

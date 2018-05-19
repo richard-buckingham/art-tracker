@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 
 import { Artwork } from '../../../models/artwork.interface';
 import { SelectData } from '../../../models/selectData.interface';
+import { Location } from '../../../models/location.interface';
 
 import { locations } from '../../../reference-data/locations';
 import { artSeries } from '../../../reference-data/art-series';
@@ -12,15 +13,16 @@ import { artSeries } from '../../../reference-data/art-series';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['artwork-form.component.scss'],
   template: `
-      <div class="artwork-form">
+    <div class="artwork-form">
 
       <form [formGroup]="form">
 
       <! -- Series -->
-      <div class="artwork-form select">
+      <div class="select">
         <label>
           <h3>Series</h3>
-          <select class="form-control" formControlName="series">
+          <select class="form-control" 
+                  formControlName="series" >
             <option *ngFor="let item of artSeries" 
               [value]="item.value"
               selected="item.default" >
@@ -34,10 +36,10 @@ import { artSeries } from '../../../reference-data/art-series';
       </div>
 
       <!-- Code -->  
-        <div class="artwork-form single-line-input">
+        <div class="single-line-input">
           <label>
             <h3>Code</h3>
-            <input type="text" placeholder="todo - generate the code" formControlName="code">
+            <input type="text" formControlName="code">
           </label>
           <div class="error" *ngIf="validateRequired('code')">
             code is required
@@ -45,10 +47,10 @@ import { artSeries } from '../../../reference-data/art-series';
         </div>
       
         <!-- Description -->  
-        <div class="artwork-form single-line-input">
+        <div class="single-line-input">
           <label>
             <h3>Description</h3>
-            <input type="text" placeholder="please enter description..." formControlName="description">
+            <input type="text" formControlName="description">
           </label>
           <div class="error" *ngIf="validateRequired('description')">
             description is required
@@ -56,14 +58,15 @@ import { artSeries } from '../../../reference-data/art-series';
         </div>
 
         <! -- Location -->
-        <div class="artwork-form select">
+        <div class="select">
           <label>
             <h3>Location</h3>
-            <select class="form-control" formControlName="location">
+            <select class="form-control" 
+                    formControlName="location"
+                    (change)="calculateWholesalePrice()">
               <option *ngFor="let location of locations" 
-                [value]="location.value"
-                selected="location.default" >
-                {{location.description}}
+                [value]="location.code" >
+                {{location.name}}
               </option>
             </select>
           </label>
@@ -73,11 +76,10 @@ import { artSeries } from '../../../reference-data/art-series';
         </div>
 
         <!-- Dimensions -->
-        <div class="artwork-form single-line-input">
+        <div class="single-line-input">
           <label>
             <h3>Dimensions</h3>
-            <input type="text" placeholder="please enter dimensions..." 
-                    formControlName="dimensions">
+            <input type="text" formControlName="dimensions">
           </label>
           <div class="error" *ngIf="validateRequired('dimensions')">
             dimensions are required
@@ -85,38 +87,32 @@ import { artSeries } from '../../../reference-data/art-series';
         </div>
 
         <!-- Retail Price -->
-        <div class="artwork-form single-line-input">
+        <div class="single-line-input">
           <label>
             <h3>Retail Price</h3>
-            <input type="number" placeholder="please retail price..." 
-                    formControlName="retailPrice">
+            <input type="number" 
+                    class="price" 
+                    formControlName="retailPrice"
+                    (change)="calculateWholesalePrice()" 
+                    (keyup)="calculateWholesalePrice()">
+
+            <span *ngIf="form.get('wholesalePrice').value > 0">
+              <h3 class="price">Wholesale</h3>
+              <span>{{form.get('wholesalePrice').value | currency:'USD':true:'1.2-2' }}</span>
+              <h3 class="price">Commission</h3>
+              <span> {{form.get('commission').value | currency:'USD':true:'1.2-2' }} </span>
+            </span>
+
           </label>
           <div class="error" *ngIf="validateRequired('retailPrice')">
             retail price is required
           </div>
-        </div>
-
-        <!-- Wholesale Price -->
-        <div class="artwork-form single-line-input">
-          <label>
-            <h3>Wholesale Price</h3>
-            <input type="number"
-                    formControlName="wholesalePrice">
-          </label>
-          <div class="error" *ngIf="validateRequired('wholesalePrice')">
-            wholesale price is required
-          </div>
+    
         </div>
 
 
-
-       
-                
+  
         <!-- Date Sold -->        
-        <!--  -->        
-        <!--  -->        
-        <!--  -->        
-         
 
         <div class="artwork-form__submit">
           <div>
@@ -168,7 +164,8 @@ import { artSeries } from '../../../reference-data/art-series';
         </div>
 
       </form>
-     <!-- <pre>{{ form.value | json }}</pre> -->
+     <pre>Artwork: {{ form.value | json }}</pre>
+     <pre>Locations: {{ locations | json }}</pre>
     </div>
   `
 })
@@ -176,7 +173,8 @@ export class ArtworkFormComponent implements OnChanges {
 
   toggled: boolean = false;
   exists: boolean = false;
-  locations: SelectData[] = locations;
+  locations: Location[] = locations;
+  location: Location;
   artSeries: SelectData[] = artSeries;
 
   @Input() artwork: Artwork;
@@ -191,7 +189,8 @@ export class ArtworkFormComponent implements OnChanges {
     description: ['', Validators.required],
     dimensions: ['', Validators.required],
     retailPrice: [, Validators.required],
-    wholesalePrice: [{value: '0.00', disabled: true}, Validators.required],
+    wholesalePrice: [, Validators.required],
+    commission: [, Validators.required],
     dateSold: ['01/01/2020', Validators.required]
   });
 
@@ -233,6 +232,20 @@ export class ArtworkFormComponent implements OnChanges {
   validateRequired(formControlName:string): boolean {
     return (this.form.get(formControlName).hasError('required') 
               && this.form.get(formControlName).touched);
+  }
+
+  calculateWholesalePrice(): void {
+    const selectedLocationCode: string = this.form.get("location").value;
+    if (selectedLocationCode) {
+      
+      const selectedLocation: Location = this.locations.find(location => location.code === selectedLocationCode);
+      const retailPrice: number = this.form.get("retailPrice").value;
+      const commission: number = retailPrice * (selectedLocation.commission / 100);
+      const wholesalePrice: number = retailPrice - commission;
+
+      this.form.controls['wholesalePrice'].setValue(wholesalePrice);
+      this.form.controls['commission'].setValue(commission);
+    }
   }
 
 }
